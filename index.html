@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brice Pichard — Responsable Communication-Marketing CRM</title>
+<meta name="description" content="CV interactif de Brice Pichard, Responsable Communication-Marketing CRM à Bordeaux.">
+<style>
+  :root{
+    --ink:#12172b;
+    --ink-soft:#4a5170;
+    --paper:#faf9f5;
+    --paper-2:#f1efe6;
+    --sage:#8fa876;
+    --sage-dark:#6b8752;
+    --coral:#ff6b4a;
+    --coral-soft:#ffe4dc;
+    --line: rgba(18,23,43,0.1);
+    --shadow: 0 20px 50px rgba(18,23,43,0.08);
+    --radius: 20px;
+    --maxw: 1100px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  h1,h2,h3{margin:0;font-weight:700;letter-spacing:-0.02em;}
+  section{position:relative;padding:110px 24px;max-width:var(--maxw);margin:0 auto;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;
+    color:var(--sage-dark);margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:28px;height:2px;background:var(--sage);display:inline-block;}
+  .section-title{font-size:clamp(28px,4vw,42px);margin-bottom:48px;}
+
+  /* ---------- Background blobs ---------- */
+  .blob{position:absolute;border-radius:50%;filter:blur(0px);opacity:0.5;z-index:0;pointer-events:none;}
+  .blob-anim{animation:float 14s ease-in-out infinite;}
+  @keyframes float{
+    0%,100%{transform:translate(0,0) scale(1);}
+    50%{transform:translate(20px,-30px) scale(1.05);}
+  }
+
+  /* ---------- Sidebar nav ---------- */
+  .sidebar{
+    position:fixed;top:0;left:0;bottom:0;width:240px;z-index:100;
+    display:flex;flex-direction:column;justify-content:space-between;
+    padding:40px 28px;
+    background:transparent;
+    border-right:1px solid var(--line);
+    transition:transform .35s ease;
+  }
+  .sidebar-top{display:flex;flex-direction:column;gap:52px;}
+  .logo{font-weight:800;font-size:19px;letter-spacing:-0.02em;color:var(--ink);line-height:1.3;}
+  .logo span{color:var(--sage-dark);display:block;}
+  nav.links{display:flex;flex-direction:column;gap:8px;}
+  nav.links a{
+    font-size:15px;font-weight:700;text-decoration:none;color:var(--ink-soft);
+    position:relative;padding:10px 0 10px 18px;transition:color .2s ease, border-color .2s ease;
+    border-left:2px solid transparent;
+  }
+  nav.links a:hover, nav.links a.active{color:var(--ink);border-left-color:var(--coral);}
+  .sidebar-cta{
+    display:block;text-align:center;background:var(--ink);color:var(--paper)!important;
+    padding:14px 20px;border-radius:14px;font-size:14px!important;font-weight:700;
+    border-left:none!important;transition:transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 12px 24px rgba(18,23,43,0.16);
+  }
+  .sidebar-cta:hover{transform:translateY(-2px);}
+  .page{margin-left:240px;}
+  .burger{
+    display:none;flex-direction:column;gap:5px;cursor:pointer;background:#fff;border:none;
+    position:fixed;top:18px;left:18px;z-index:150;width:46px;height:46px;
+    border-radius:50%;box-shadow:var(--shadow);align-items:center;justify-content:center;
+  }
+  .burger span{width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.3s;}
+  .sidebar-overlay{
+    position:fixed;inset:0;background:rgba(18,23,43,0.35);z-index:90;
+    opacity:0;pointer-events:none;transition:opacity .3s ease;
+  }
+  .sidebar-overlay.open{opacity:1;pointer-events:auto;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;display:flex;align-items:center;
+    padding-top:60px;padding-bottom:80px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:60px;align-items:center;position:relative;z-index:1;width:100%;}
+  .hero-eyebrow{opacity:0;transform:translateY(16px);animation:riseIn .7s ease forwards .1s;}
+  .hero h1{font-size:clamp(38px,6vw,64px);line-height:1.05;opacity:0;transform:translateY(20px);animation:riseIn .8s ease forwards .25s;}
+  .hero h1 .accent{color:var(--sage-dark);}
+  .hero .role{
+    font-size:clamp(18px,2.4vw,24px);color:var(--ink-soft);margin-top:16px;font-weight:600;
+    opacity:0;transform:translateY(20px);animation:riseIn .8s ease forwards .4s;
+  }
+  .hero p.tagline{margin-top:22px;max-width:520px;color:var(--ink-soft);font-size:16px;
+    opacity:0;transform:translateY(20px);animation:riseIn .8s ease forwards .55s;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px;
+    opacity:0;transform:translateY(20px);animation:riseIn .8s ease forwards .7s;}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+    padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-soft);
+    box-shadow:0 4px 14px rgba(18,23,43,0.04);
+  }
+  .hero-cta{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;
+    opacity:0;transform:translateY(20px);animation:riseIn .8s ease forwards .85s;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;
+    font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;border:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:hover{transform:translateY(-3px);}
+  .btn-primary{background:var(--ink);color:var(--paper);box-shadow:0 12px 28px rgba(18,23,43,0.18);}
+  .btn-primary:hover{box-shadow:0 16px 34px rgba(18,23,43,0.26);}
+  .btn-outline{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--paper);}
+
+  @keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+
+  .hero-photo-wrap{
+    position:relative;display:flex;justify-content:center;align-items:center;
+    opacity:0;transform:scale(.9);animation:popIn .9s cubic-bezier(.2,.8,.2,1) forwards .3s;
+  }
+  @keyframes popIn{to{opacity:1;transform:scale(1);}}
+  .hero-photo-ring{
+    position:absolute;width:340px;height:340px;border-radius:50%;
+    border:2px dashed var(--sage);opacity:0.5;
+    animation:spin 30s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .hero-photo{
+    width:280px;height:280px;border-radius:50%;object-fit:cover;
+    border:6px solid #fff;box-shadow:0 24px 60px rgba(18,23,43,0.18);
+    position:relative;z-index:2;
+  }
+  .scroll-cue{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;
+    color:var(--ink-soft);letter-spacing:0.1em;text-transform:uppercase;opacity:0;
+    animation:riseIn .8s ease forwards 1.1s;
+  }
+  .scroll-cue .dot{width:6px;height:6px;border-radius:50%;background:var(--coral);animation:bounce 1.6s ease-in-out infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(10px);}}
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+  .reveal-stagger.visible .stagger-item{opacity:1;transform:translateY(0);}
+  .stagger-item{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
+
+  /* ---------- About / Atouts ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .card{
+    background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);
+    border:1px solid var(--line);
+  }
+  .traits{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;}
+  .trait{
+    background:var(--paper-2);border:1px solid var(--line);padding:10px 18px;border-radius:999px;
+    font-size:14px;font-weight:600;transition:transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .trait:hover{background:var(--sage);color:#fff;transform:translateY(-4px) rotate(-1deg);}
+  .skill-row{margin-bottom:18px;}
+  .skill-row:last-child{margin-bottom:0;}
+  .skill-label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px;}
+  .skill-bar{height:8px;background:var(--paper-2);border-radius:999px;overflow:hidden;}
+  .skill-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--sage),var(--sage-dark));transition:width 1.4s cubic-bezier(.2,.8,.2,1);}
+  .lang-fill{background:linear-gradient(90deg,var(--coral),#ff8a6d);}
+  .card h3{font-size:20px;margin-bottom:18px;}
+  .card + .card{margin-top:28px;}
+  .about-col{display:flex;flex-direction:column;}
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative;margin-top:20px;}
+  .timeline::before{
+    content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;
+    background:linear-gradient(var(--sage),var(--paper-2));
+  }
+  .tl-item{position:relative;padding-left:48px;margin-bottom:44px;}
+  .tl-item:last-child{margin-bottom:0;}
+  .tl-dot{
+    position:absolute;left:0;top:4px;width:24px;height:24px;border-radius:50%;
+    background:#fff;border:3px solid var(--sage);display:flex;align-items:center;justify-content:center;
+    transition:transform .3s ease, background .3s ease;
+  }
+  .tl-item.visible .tl-dot{background:var(--sage);}
+  .tl-item:hover .tl-dot{transform:scale(1.2);}
+  .tl-period{font-size:13px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:0.06em;}
+  .tl-role{font-size:20px;font-weight:700;margin-top:4px;}
+  .tl-org{font-size:14px;font-weight:600;color:var(--sage-dark);margin-top:2px;margin-bottom:10px;}
+  .tl-desc{color:var(--ink-soft);font-size:15px;max-width:640px;}
+
+  /* ---------- Education chips ---------- */
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:10px;}
+  .edu-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:var(--shadow);
+    transition:transform .3s ease, box-shadow .3s ease;}
+  .edu-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px rgba(18,23,43,0.12);}
+  .edu-period{font-size:12px;font-weight:700;color:var(--coral);text-transform:uppercase;letter-spacing:.06em;}
+  .edu-title{font-size:16px;font-weight:700;margin-top:8px;line-height:1.35;}
+  .edu-org{font-size:13px;color:var(--ink-soft);margin-top:8px;}
+
+  /* ---------- References ---------- */
+  .ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .ref-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px;text-align:left;box-shadow:var(--shadow);}
+  .ref-name{font-weight:700;font-size:16px;}
+  .ref-role{font-size:13px;color:var(--ink-soft);margin-top:4px;}
+  .ref-note{font-size:12px;color:var(--ink-soft);margin-top:14px;font-style:italic;opacity:.8;}
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:50px;align-items:start;}
+  .contact-info .pill{margin-bottom:12px;}
+  .contact-info a.pill:hover{background:var(--ink);color:#fff;}
+  form.contact-form{display:flex;flex-direction:column;gap:16px;}
+  .field label{font-size:13px;font-weight:700;margin-bottom:6px;display:block;}
+  .field input, .field textarea{
+    width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);
+    font-family:inherit;font-size:14px;background:#fff;transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 4px rgba(143,168,118,0.15);}
+  .field textarea{resize:vertical;min-height:130px;}
+  .form-note{font-size:12px;color:var(--ink-soft);}
+  .form-status{font-size:14px;font-weight:600;min-height:20px;}
+  .form-status.ok{color:var(--sage-dark);}
+  .form-status.err{color:var(--coral);}
+
+  footer{padding:40px 24px;text-align:center;color:var(--ink-soft);font-size:13px;border-top:1px solid var(--line);}
+  footer a{text-decoration:underline;}
+
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;text-align:center;}
+    .hero-cta{justify-content:center;}
+    .hero-meta{justify-content:center;}
+    .hero-photo-wrap{order:-1;}
+    .about-grid{grid-template-columns:1fr;}
+    .edu-grid{grid-template-columns:1fr;}
+    .ref-grid{grid-template-columns:1fr;}
+    .contact-wrap{grid-template-columns:1fr;}
+    .sidebar{
+      transform:translateX(-100%);
+      background:rgba(255,255,255,0.98);
+      box-shadow:8px 0 30px rgba(18,23,43,0.12);
+    }
+    .sidebar.open{transform:translateX(0);}
+    .page{margin-left:0;}
+    .burger{display:flex;}
+  }
+</style>
+</head>
+<body>
+
+<header class="sidebar" id="siteNav">
+  <div class="sidebar-top">
+    <div class="logo">Brice<span>.Pichard</span></div>
+    <nav class="links" id="navLinks">
+      <a href="#about" class="nav-link">Profil</a>
+      <a href="#experience" class="nav-link">Expériences</a>
+      <a href="#formation" class="nav-link">Formation</a>
+      <a href="#references" class="nav-link">Références</a>
+    </nav>
+  </div>
+  <a href="#contact" class="nav-link sidebar-cta">Contact</a>
+</header>
+<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="page" id="pageContent">
+
+<section class="hero" id="hero">
+  <div class="blob blob-anim" style="width:420px;height:420px;background:var(--coral-soft);top:-100px;right:-140px;"></div>
+  <div class="blob blob-anim" style="width:320px;height:320px;background:var(--paper-2);bottom:-80px;left:-100px;animation-delay:3s;"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow hero-eyebrow">Bordeaux · France & International</div>
+      <h1>Brice Pichard</h1>
+      <div class="role">Responsable Communication‑Marketing <span class="accent">CRM</span></div>
+      <p class="tagline">Près de 8 ans à piloter des dispositifs CRM et des campagnes 360 pour de grandes marques (Skoda, Flying Blue, American Express, Nissan, Peugeot...). Stratégie, créativité et management d'équipes au service de la relation client.</p>
+      <div class="hero-meta">
+        <span class="pill">📍 Bordeaux</span>
+        <span class="pill">🌍 Télétravail ou présentiel</span>
+        <span class="pill">🚗 Permis B</span>
+        <span class="pill">🗣️ FR · EN · ES</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">Me contacter</a>
+        <a href="CV_Brice_Pichard.pdf" class="btn btn-outline" download>Télécharger mon CV</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring"></div>
+      <img class="hero-photo" src="data:image/jpeg;base64,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" alt="Photo de Brice Pichard">
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="dot"></span></div>
+</section>
+
+<section id="about">
+  <div class="eyebrow reveal">Profil</div>
+  <h2 class="section-title reveal">Qui je suis</h2>
+  <div class="about-grid">
+    <div class="about-col reveal">
+      <div class="card">
+        <h3>Atouts</h3>
+        <div class="traits">
+          <span class="trait">Esprit d'équipe & leadership</span>
+          <span class="trait">Empathique</span>
+          <span class="trait">Organisation & sens des priorités</span>
+          <span class="trait">Créatif & ouvert d'esprit</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Langues</h3>
+        <div class="skill-row">
+          <div class="skill-label"><span>Français</span><span>Natif</span></div>
+          <div class="skill-bar"><div class="skill-fill lang-fill" data-fill="100"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Anglais</span><span>Courant</span></div>
+          <div class="skill-bar"><div class="skill-fill lang-fill" data-fill="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Espagnol</span><span>Intermédiaire à courant</span></div>
+          <div class="skill-bar"><div class="skill-fill lang-fill" data-fill="70"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-col reveal" style="transition-delay:.15s;">
+      <div class="card">
+        <h3>Outils & informatique</h3>
+        <div class="skill-row">
+          <div class="skill-label"><span>Google Analytics / Looker Studio / Tableau</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Figma</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-label"><span>Suite Office</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-fill="95"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Expertise CRM</h3>
+        <div class="traits">
+          <span class="trait">Stratégie CRM</span>
+          <span class="trait">Fidélisation & acquisition</span>
+          <span class="trait">Coordination 360</span>
+          <span class="trait">Management d'équipes</span>
+          <span class="trait">Événementiel</span>
+          <span class="trait">Brief & recommandations créatives</span>
+          <span class="trait">Parcours & cycles de vie client</span>
+          <span class="trait">Pilotage grands comptes</span>
+          <span class="trait">Coordination internationale</span>
+          <span class="trait">Bilans post-campagnes</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="eyebrow reveal">Parcours</div>
+  <h2 class="section-title reveal">Expériences professionnelles</h2>
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Fév. 2024 — Juil. 2025</div>
+      <div class="tl-role">Directeur Clientèle</div>
+      <div class="tl-org">DDB° · Paris</div>
+      <div class="tl-desc">Pilotage de la stratégie et des campagnes CRM pour Skoda (fidélisation et développement du Club Skoda, lancements produits, branding, opérations promotionnelles). Coordination 360° (digital, média, social, commercial) et gestion d'évènements majeurs (Tour de France, Paris Motor Show). Management d'équipes de chefs de projets, data et créatifs.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Jan. 2022 — Fév. 2024</div>
+      <div class="tl-role">Chef de projet senior</div>
+      <div class="tl-org">Dentsu Creative · Paris</div>
+      <div class="tl-desc">Accompagnement des marques Flying Blue (Air France‑KLM Group), American Express, ALL Accor et La Banque Postale sur des dispositifs CRM (acquisition et rétention) : définition de parcours clients, mise en place de cycles de vie membres, recommandations stratégiques et opérationnelles. Management de chefs de projets junior.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Oct. 2019 — Déc. 2021</div>
+      <div class="tl-role">Chef de projet</div>
+      <div class="tl-org">Publicis Conseil · Paris</div>
+      <div class="tl-desc">Gestion des campagnes CRM pour Nissan France : prise de brief, élaboration de recommandations créatives et stratégiques, coordination des équipes créatives et data, traitement des bases clients, suivi de production et livraison, bilans post‑campagnes et définition des fils rouges annuels.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Fév. 2019 — Sept. 2019</div>
+      <div class="tl-role">Chef de projet Conseil</div>
+      <div class="tl-org">Altavia Aura · Lyon / St‑Étienne</div>
+      <div class="tl-desc">Réflexion stratégique et gestion de campagnes pour les comptes Antalis, Michelin, Doras, Orexad… Prise de brief client, réalisation de briefs créatifs, accompagnement client, coordination nationale, suivi de campagnes.</div>
+    </div>
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-period">Sept. 2017 — Oct. 2018</div>
+      <div class="tl-role">Chef de publicité junior</div>
+      <div class="tl-org">BETC · Paris</div>
+      <div class="tl-desc">Gestion de campagnes pour le compte Peugeot : traitement de la demande stratégique, réalisation de briefs créatifs média, hors‑média et digitaux, accompagnement client, coordination internationale, suivi de campagnes.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="formation">
+  <div class="eyebrow reveal">Formation</div>
+  <h2 class="section-title reveal">Diplômes & Formations</h2>
+  <div class="edu-grid reveal-stagger reveal">
+    <div class="edu-card stagger-item">
+      <div class="edu-period">2017 — 2018</div>
+      <div class="edu-title">Master 2 — Marques et Management de l'Innovation</div>
+      <div class="edu-org">ISCOM Paris</div>
+    </div>
+    <div class="edu-card stagger-item" style="transition-delay:.1s;">
+      <div class="edu-period">2016 — 2017</div>
+      <div class="edu-title">Master 1 — Communication Globale des Entreprises et des Marques</div>
+      <div class="edu-org">ISCOM Lyon</div>
+    </div>
+    <div class="edu-card stagger-item" style="transition-delay:.2s;">
+      <div class="edu-period">2012 — 2014</div>
+      <div class="edu-title">BTS Communication</div>
+      <div class="edu-org">Cité Scolaire Albert Londres · Vichy</div>
+    </div>
+  </div>
+</section>
+
+<section id="references">
+  <div class="eyebrow reveal">Ils me recommandent</div>
+  <h2 class="section-title reveal">Références</h2>
+  <div class="ref-grid reveal-stagger reveal">
+    <div class="ref-card stagger-item">
+      <div class="ref-name">Paul Johannet</div>
+      <div class="ref-role">Directeur Conseil, DDB°</div>
+      <div class="ref-note">Coordonnées transmises sur demande</div>
+    </div>
+    <div class="ref-card stagger-item" style="transition-delay:.1s;">
+      <div class="ref-name">Michel Kowalski</div>
+      <div class="ref-role">DGA, Dentsu Créative</div>
+      <div class="ref-note">Coordonnées transmises sur demande</div>
+    </div>
+    <div class="ref-card stagger-item" style="transition-delay:.2s;">
+      <div class="ref-name">Thierry Brûlé</div>
+      <div class="ref-role">Deputy Managing Director, Publicis</div>
+      <div class="ref-note">Coordonnées transmises sur demande</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="eyebrow reveal">Contact</div>
+  <h2 class="section-title reveal">Discutons de votre projet</h2>
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <p style="color:var(--ink-soft);max-width:420px;margin-bottom:24px;">Une opportunité, un projet CRM, ou simplement envie d'échanger ? Écrivez‑moi, je réponds rapidement.</p>
+      <a class="pill" href="mailto:brice.pichard@live.fr">✉️ brice.pichard@live.fr</a><br><br>
+      <a class="pill" href="tel:+33685202896">📱 06 85 20 28 96</a><br><br>
+      <a class="pill" href="https://www.linkedin.com/in/bricepichard/" target="_blank" rel="noopener">🔗 LinkedIn — /in/bricepichard</a>
+    </div>
+    <form class="contact-form reveal" style="transition-delay:.1s;" id="contactForm" action="https://formspree.io/f/brice.pichard@live.fr" method="POST">
+      <input type="hidden" name="_subject" value="Nouveau message depuis votre CV en ligne">
+      <div class="field">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" required placeholder="Votre nom">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="_replyto" required placeholder="vous@exemple.com">
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required placeholder="Votre message..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Envoyer le message</button>
+      <div class="form-status" id="formStatus"></div>
+      <p class="form-note">Ce formulaire envoie directement un email à brice.pichard@live.fr via Formspree. Si l'envoi ne fonctionne pas, écrivez directement à <a href="mailto:brice.pichard@live.fr">brice.pichard@live.fr</a>.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © <span id="year"></span> Brice Pichard — Responsable Communication‑Marketing CRM · <a href="https://www.linkedin.com/in/bricepichard/" target="_blank" rel="noopener">LinkedIn</a>
+</footer>
+
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile sidebar toggle
+  const sidebar = document.getElementById('siteNav');
+  const burger = document.getElementById('burger');
+  const overlay = document.getElementById('sidebarOverlay');
+  function closeSidebar(){
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+  function toggleSidebar(){
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+  burger.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  document.querySelectorAll('.nav-link').forEach(a => a.addEventListener('click', closeSidebar));
+
+  // Active link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navA = document.querySelectorAll('.nav-link');
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navA.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector('.nav-link[href="#'+entry.target.id+'"]');
+        if(active) active.classList.add('active');
+      }
+    });
+  }, {rootMargin: '-40% 0px -50% 0px'});
+  sections.forEach(s => navObserver.observe(s));
+
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.reveal, .tl-item').forEach(el => revealObserver.observe(el));
+
+  // Skill bars fill on visibility
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+          fill.style.width = fill.dataset.fill + '%';
+        });
+        skillObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.3});
+  document.querySelectorAll('.card').forEach(c => skillObserver.observe(c));
+
+  // Contact form (Formspree AJAX, falls back to mailto)
+  const form = document.getElementById('contactForm');
+  const statusEl = document.getElementById('formStatus');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusEl.textContent = 'Envoi en cours...';
+    statusEl.className = 'form-status';
+    try{
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {'Accept':'application/json'}
+      });
+      if(res.ok){
+        statusEl.textContent = 'Message envoyé — merci, je reviens vers vous rapidement !';
+        statusEl.className = 'form-status ok';
+        form.reset();
+      } else {
+        throw new Error('send failed');
+      }
+    } catch(err){
+      statusEl.textContent = "L'envoi automatique a échoué — un client mail va s'ouvrir pour finaliser l'envoi.";
+      statusEl.className = 'form-status err';
+      const name = encodeURIComponent(form.name.value);
+      const email = encodeURIComponent(form._replyto.value);
+      const msg = encodeURIComponent(form.message.value + '\n\n— ' + name + ' (' + email + ')');
+      window.location.href = 'mailto:brice.pichard@live.fr?subject=Message%20depuis%20votre%20CV%20en%20ligne&body=' + msg;
+    }
+  });
+</script>
+</body>
+</html>
