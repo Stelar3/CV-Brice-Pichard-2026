@@ -469,7 +469,7 @@
       <a class="pill" href="tel:+33685202896">📱 06 85 20 28 96</a><br><br>
       <a class="pill" href="https://www.linkedin.com/in/bricepichard/" target="_blank" rel="noopener">🔗 LinkedIn — /in/bricepichard</a>
     </div>
-    <form class="contact-form reveal" style="transition-delay:.1s;" id="contactForm" action="https://formspree.io/f/brice.pichard@live.fr" method="POST">
+    <form class="contact-form reveal" style="transition-delay:.1s;" id="contactForm" action="https://formspree.io/brice.pichard@live.fr" method="POST">
       <input type="hidden" name="_subject" value="Nouveau message depuis votre CV en ligne">
       <div class="field">
         <label for="name">Nom</label>
@@ -485,7 +485,6 @@
       </div>
       <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Envoyer le message</button>
       <div class="form-status" id="formStatus"></div>
-      <p class="form-note">Ce formulaire envoie directement un email à brice.pichard@live.fr via Formspree. Si l'envoi ne fonctionne pas, écrivez directement à <a href="mailto:brice.pichard@live.fr">brice.pichard@live.fr</a>.</p>
     </form>
   </div>
 </section>
@@ -553,7 +552,7 @@
   }, {threshold: 0.3});
   document.querySelectorAll('.card').forEach(c => skillObserver.observe(c));
 
-  // Contact form (Formspree AJAX, falls back to mailto)
+  // Contact form (Formspree AJAX — envoi silencieux, sans ouvrir de client mail)
   const form = document.getElementById('contactForm');
   const statusEl = document.getElementById('formStatus');
   form.addEventListener('submit', async (e) => {
@@ -574,12 +573,8 @@
         throw new Error('send failed');
       }
     } catch(err){
-      statusEl.textContent = "L'envoi automatique a échoué — un client mail va s'ouvrir pour finaliser l'envoi.";
+      statusEl.innerHTML = "L'envoi automatique a échoué. Merci d'écrire directement à <a href=\"mailto:brice.pichard@live.fr\">brice.pichard@live.fr</a>.";
       statusEl.className = 'form-status err';
-      const name = encodeURIComponent(form.name.value);
-      const email = encodeURIComponent(form._replyto.value);
-      const msg = encodeURIComponent(form.message.value + '\n\n— ' + name + ' (' + email + ')');
-      window.location.href = 'mailto:brice.pichard@live.fr?subject=Message%20depuis%20votre%20CV%20en%20ligne&body=' + msg;
     }
   });
 </script>
